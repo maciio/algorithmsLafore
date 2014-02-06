@@ -55,7 +55,6 @@ public class LowArrayApp {
 
 // array as class
 class LowArray {	
-	public LowArray(){}
 
 	private long[] a;
 

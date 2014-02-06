@@ -1,42 +1,80 @@
+class HighArrayApp {
+	public static void main(String[] args) {
+		HighArray highArray = new HighArray(100);
+		highArray.insert(77);
+		highArray.insert(66);
+		highArray.insert(55);
+		highArray.insert(44);
+		highArray.insert(33);
+		highArray.insert(22);
+		highArray.insert(11);
+		highArray.insert(0);
+		highArray.insert(9);
+		highArray.insert(8);
+		highArray.insert(67);
+		highArray.insert(4);
+		highArray.insert(45);
+		highArray.insert(21);
+
+		highArray.display();
+
+		//searching element
+		long serchVal = 33;
+		if(highArray.isElemContained(serchVal)){
+			System.out.println("Found it: " + serchVal);
+		} else {
+			System.out.println("Not Found it");
+		}
+
+		System.out.println("Elements to delete: {0,55,77}");
+		highArray.delete(0);
+		highArray.delete(55);
+		highArray.delete(77);
+
+		highArray.display();
+	}
+}
+
 class HighArray {
+	
 	private long[] a; // ref to array a
-	private int nElems; // number of data items //-----------------------------------------------------------
+	private int nElems; // number of data items 
 	
 	public HighArray(int max) {
-		a = new long[max]; nElems = 0;
+		a = new long[max]; 
+		nElems = 0;
 	}
 
-	public boolean find(long searchKey) {		
+	public boolean isElemContained(long searchKey) {		
 		for(int j=0; j<nElems; j++) {
 			if(a[j] == searchKey) {
 				return true;
 			}
 		}
+		return false;
 	}
 		
 	public void insert(long value) {
 		a[nElems] = value; 
 		nElems++;
 	}
-	public boolean delete(long value) {
-		for(int j=0; j<nElems; j++){
-			if( value == a[j] ){
-				
+	public boolean delete(long elem) {		
+		for(int j = 0; j < nElems; j++){
+			if( elem == a[j] ) {
+				for (int k = j; k < nElems; k++) {
+					a[k] = a[k+1];	
+				}		
+				nElems--; 
+				return true;
 			}
 		}
-			
-		if(j==nElems) return false;
-		else {
-		for(int k=j; k<nElems; k++) a[k] = a[k+1];
-		nElems--; return true; }
-		// look for it
-		// can’t find it
-		// found it
-		// move higher ones down // decrement size
-		} // end delete() //----------------------------------------------------------- public void display() // displays array contents
-		{
-		for(int j=0; j<nElems; j++) // for each element,
-		System.out.print(a[j] + “ “); // display it System.out.println(“”);
-		}
-		//-----------------------------------------------------------
-		} // end class HighArray
+		return false;
+	}
+		
+	public void display() {
+		for(int j = 0; j < nElems; j++){
+			System.out.print(a[j] + " ");
+		} 
+			System.out.print("\n");			
+	}					
+} 
