@@ -10,7 +10,7 @@ class HighArrayApp {
 		highArray.insert(11);
 		highArray.insert(0);
 		highArray.insert(9);
-		highArray.insert(8);
+		highArray.insert(88);
 		highArray.insert(67);
 		highArray.insert(4);
 		highArray.insert(45);
@@ -25,10 +25,13 @@ class HighArrayApp {
 		} else {
 			System.out.println("Not Found it");
 		}
-
+		System.out.println("Max element: " + highArray.getMax());
+		System.out.println("Poll Max element: " + highArray.pollMax());
+		highArray.display();
+		
 		System.out.println("Elements to delete: {0,55,77}");
 		highArray.delete(0);
-		highArray.delete(55);
+		highArray.delete(55);	
 		highArray.delete(77);
 
 		highArray.display();
@@ -45,6 +48,7 @@ class HighArray {
 		nElems = 0;
 	}
 
+	//Linear search
 	public boolean isElemContained(long searchKey) {		
 		for(int j=0; j<nElems; j++) {
 			if(a[j] == searchKey) {
@@ -76,5 +80,32 @@ class HighArray {
 			System.out.print(a[j] + " ");
 		} 
 			System.out.print("\n");			
-	}					
+	}	
+
+	public long getMax() {
+		if(a.length == 0) {
+			return -1;
+		}
+		long max = a[0];
+		for(int i = 0; i <nElems; i++) {
+			if(max < a[i + 1]) {
+				max = a[i + 1];
+			} 
+		}
+		return max;
+	}		
+
+	public long pollMax() {		
+		long max = getMax();
+		for(int i = 0 ; i < nElems; i++) {
+			if(a[i] == max){
+				a[i] = a[i + 1];
+			}
+		}
+		nElems--;
+		return max;
+	}		
 } 
+
+
+

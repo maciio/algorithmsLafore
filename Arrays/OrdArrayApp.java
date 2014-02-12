@@ -11,10 +11,15 @@ class OrdArrayApp {
 		oArray.insert(99);
 		oArray.insert(100);
 		oArray.insert(44);
-		oArray.insert(00);
+		
 
 		oArray.display();
 		
+		//search with Alternative 99
+
+		int indx = oArray.binarySearch(0, nElems, 99);
+		System.out.println("->>>>>: " + indx);
+
 		//searching element 35
 		int[] elems = {35, 66};
 		int indexFound = 0;
@@ -48,7 +53,10 @@ class OrdArray {
 		return nElems;
 	}
 
-	//Binary Search
+	/**
+	* Binary Serch 
+	* returns the index of element if it's found it, else return the array size
+	*/
 	public int find(long searchValue) {
 		int lowebound = 0;
 		int upperbound = nElems-1;
@@ -68,7 +76,24 @@ class OrdArray {
 			}
 		}
 	}
+//http://jeffreystedfast.blogspot.mx/2007/02/binary-insertion-sort.html
+	public int binarySearch(int low, int high, int key) {
+		int mid = low + ((high - low) / 2);
+		if(a[mid] == key){
+			return mid;
+		} else if(low > high) {
+			return -1;
+		} else {
+			if(a[mid] > key) {
+				return binarySearch(low, mid, key);
+			} else {
+				return binarySearch(mid + 1, high, key);
+			}
+		}
 
+	}
+
+	//ingresa en orden natural
 	public void insert(long value) {
 		int j;
 		for(j=0; j<nElems; j ++) {
@@ -103,3 +128,9 @@ class OrdArray {
 		System.out.print("\n");
 	}
 }
+
+
+
+
+
+
