@@ -17,7 +17,7 @@ class OrdArrayApp {
 		
 		//search with Alternative 99
 
-		int indx = oArray.binarySearch(0, nElems, 99);
+		int indx = oArray.findV2(7);
 		System.out.println("->>>>>: " + indx);
 
 		//searching element 35
@@ -62,7 +62,13 @@ class OrdArray {
 		int upperbound = nElems-1;
 		int currIndex; //currentIndex
 		while(true) {
+			// it fails if the sum of low and high is greater than 
+			// the maximum positive int value (231 - 1). 
+			// The sum overflows to a negative value
+			// and the value stays negative when divided by two
+			// it throws ArrayIndexOutOfBoundsException.
 			currIndex = (lowebound + upperbound ) / 2;
+
 			if(a[currIndex] == searchValue) {
 				return currIndex;
 			} else if(lowebound > upperbound){
@@ -74,18 +80,25 @@ class OrdArray {
 					lowebound = currIndex + 1; //its in upper half
 				}
 			}
+
 		}
 	}
-//http://jeffreystedfast.blogspot.mx/2007/02/binary-insertion-sort.html
-	public int binarySearch(int low, int high, int key) {
+
+	public int findV2(long searchValue) {
+		int lowebound = 0;
+		int upperbound = nElems-1;
+		return binarySearch(lowebound, upperbound, searchValue);
+	}
+
+	private int binarySearch(int low, int high, long key) {
 		int mid = low + ((high - low) / 2);
 		if(a[mid] == key){
 			return mid;
 		} else if(low > high) {
-			return -1;
-		} else {
+			return low;
+		} else  {
 			if(a[mid] > key) {
-				return binarySearch(low, mid, key);
+				return binarySearch(low, mid - 1, key);
 			} else {
 				return binarySearch(mid + 1, high, key);
 			}
@@ -106,6 +119,10 @@ class OrdArray {
 		}
 		a[j] = value;
 		nElems++;
+	}
+
+	public void binaryInsertionSort(long value){
+
 	}
 
 	public boolean delete(long value) {
